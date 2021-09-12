@@ -1,0 +1,37 @@
+{
+  "name": "graphql-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imhuy/graphql-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imhuy/graphql-server/issues"
+  },
+  "homepage": "https://github.com/imhuy/graphql-server#readme",
+  "description": "",
+  "dependencies": {
+    "apollo-server": "^3.3.0",
+    "apollo-server-core": "^3.3.0",
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.3",
+    "mongoose": "^6.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "nodemon": "^2.0.12"
+  }
+}
