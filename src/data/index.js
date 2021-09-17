@@ -2,7 +2,7 @@ const articles = [
     {
         id: 1,
         title: 'Wtf',
-        category: '',
+        category: [],
         slug: '',
         content: '',
         image: {
@@ -15,14 +15,14 @@ const articles = [
     {
         id: 2,
         title: 'Wtffff',
-        category: '',
+        category: [],
         slug: '',
         content: '',
         image: {
             defaultImg: '',
         },
         description: '',
-        authorId: '',
+        authorId: '1',
         dateAdded: '',
     },
 ];
@@ -31,8 +31,7 @@ const authors = [
     {
         id: '1',
         name: 'dev',
-        avatar: 'zz',
-        articleId: [1, 2],
+        image: 'zz',
     },
 ];
 

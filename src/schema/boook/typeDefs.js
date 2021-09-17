@@ -8,15 +8,14 @@ const typeDefs = gql`
     type Author {
         id: ID!
         name: String
-        avatar: String
-        articleId: [String]
+        image: String
         article: [Article]
     }
 
     type Article {
         id: ID
         title: String
-        category: String
+        category: [String]
         slug: String
         content: String
         image: Image
@@ -34,7 +33,14 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        createBook(name: String): Article
+        createAuthor(name: String, image: String): Author
+        createArticle(
+            title: String
+            slug: String
+            content: String
+            description: String
+            authorId: String
+        ): Article
     }
 `;
 

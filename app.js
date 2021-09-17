@@ -4,6 +4,9 @@ import resolvers from './src/schema/boook/resolvers';
 import typeDefs from './src/schema/boook/typeDefs';
 import mongoose from 'mongoose';
 
+//load data
+
+import mongoDataMethods from './src/data/db';
 const connectDB = async () => {
     try {
         await mongoose.connect(
@@ -18,8 +21,8 @@ const connectDB = async () => {
 };
 
 async function startApolloServer() {
-    // await connectDB();
-    const server = new ApolloServer({ typeDefs, resolvers });
+    await connectDB();
+    const server = new ApolloServer({ typeDefs, resolvers, context: () => ({ mongoDataMethods }) });
     const app = express();
     await server.start();
     server.applyMiddleware({ app });
@@ -29,9 +32,7 @@ async function startApolloServer() {
     });
 
     app.listen({ port: 8000 }, () => {
-        console.log(
-            `Server is running at http://localhost:8000${server.graphqlPath}`
-        );
+        console.log(`Server is running at http://localhost:8000${server.graphqlPath}`);
     });
 }
 

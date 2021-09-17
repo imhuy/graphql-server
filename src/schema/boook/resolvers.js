@@ -1,9 +1,12 @@
 import { articles, authors } from '../../data';
-import Books from '../../models/Books';
+import Author from '../../models/Author';
+import Article from '../../models/Article';
 
 const resolvers = {
     Query: {
-        articles: () => articles,
+        articles: async (parent, args, { mongoDataMethods }) =>
+            await mongoDataMethods.getAllArticle(),
+            
         article: (parent, args) => articles.find((x) => x.id == args.id),
 
         authors: () => authors,
@@ -15,14 +18,18 @@ const resolvers = {
     },
 
     Author: {
-        article: (parent, args) =>
-            console.log(articles.filter((x) => parent.articleId == x.id)),
+        article: (parent, args) => articles.filter((x) => parent.id == x.authorId),
     },
 
     Mutation: {
-        createBook: async (parent, args) => {
-            const newBook = new Books(args);
-            return await newBook.save();
+        createAuthor: async (parent, args) => {
+            const newAuthor = new Author(args);
+            return await newAuthor.save();
+        },
+
+        createArticle: async (parent, args) => {
+            const newArticle = new Article(args);
+            return await newArticle.save();
         },
     },
 };
