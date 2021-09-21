@@ -1,36 +1,35 @@
-import { articles, authors } from '../../data';
-import Author from '../../models/Author';
-import Article from '../../models/Article';
 
 const resolvers = {
     Query: {
         articles: async (parent, args, { mongoDataMethods }) =>
             await mongoDataMethods.getAllArticle(),
-            
-        article: (parent, args) => articles.find((x) => x.id == args.id),
 
-        authors: () => authors,
-        author: (parent, args) => authors.find((x) => x.id == args.id),
+        article: async (parent, { id }, { mongoDataMethods }) =>
+            await mongoDataMethods.getArticleById(id),
+
+        authors: async (parent, args, { mongoDataMethods }) =>
+            await mongoDataMethods.getAllAuthor(),
+
+        author: async (parent, { id }, { mongoDataMethods }) =>
+            await mongoDataMethods.getAuthorById(id),
     },
 
     Article: {
-        author: (parent, args) => authors.find((x) => parent.authorId == x.id),
+        author: async ({ authorId }, args, { mongoDataMethods }) =>
+            await mongoDataMethods.getAuthorById(authorId),
     },
 
     Author: {
-        article: (parent, args) => articles.filter((x) => parent.id == x.authorId),
+        article: async ({ id }, args, { mongoDataMethods }) =>
+            await mongoDataMethods.getArticleByAuthor({ authorId: id }),
     },
 
     Mutation: {
-        createAuthor: async (parent, args) => {
-            const newAuthor = new Author(args);
-            return await newAuthor.save();
-        },
+        createAuthor: async (parent, args, { mongoDataMethods }) =>
+            await mongoDataMethods.createAuthor(args),
 
-        createArticle: async (parent, args) => {
-            const newArticle = new Article(args);
-            return await newArticle.save();
-        },
+        createArticle: async (parent, args, { mongoDataMethods }) =>
+            await mongoDataMethods.createArticle(args),
     },
 };
 
